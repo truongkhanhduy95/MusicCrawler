@@ -9,6 +9,10 @@
 #     https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
+ITEM_PIPELINES = {
+  'scrapy_mysql_pipeline.MySQLPipeline':300,
+}
+
 BOT_NAME = 'nhaccuatui'
 
 SPIDER_MODULES = ['nhaccuatui.spiders']

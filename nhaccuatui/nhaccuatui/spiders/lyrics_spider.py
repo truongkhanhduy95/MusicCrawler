@@ -26,3 +26,4 @@ class QuotesSpider(scrapy.Spider):
       item['lyric'] = lyric.encode('utf-8')
       item['link'] = response.url.encode('utf-8')
       print(lyric)
+      yield item
