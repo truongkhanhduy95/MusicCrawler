@@ -1,4 +1,5 @@
 import scrapy
+from nhaccuatui.items import NhaccuatuiItem
 
 class QuotesSpider(scrapy.Spider):
     name = "lyric"
@@ -20,4 +21,8 @@ class QuotesSpider(scrapy.Spider):
     def saveFile(self, response):
       lyricRaw = response.xpath('//div[@class="box-content"]/div[@class="wrap"]/div[@class="content-wrap"]/div[@class="box-left"]/div[@class="lyric"]/p[@id="divLyric"]/text()').extract()
       lyric = "\n".join(lyricRaw[1:])
+      item = NhaccuatuiItem()
+      item['name'] = lyricRaw[0].encode('utf-8')
+      item['lyric'] = lyric.encode('utf-8')
+      item['link'] = response.url.encode('utf-8')
       print(lyric)
