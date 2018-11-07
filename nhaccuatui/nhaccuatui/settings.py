@@ -14,6 +14,14 @@ BOT_NAME = 'nhaccuatui'
 SPIDER_MODULES = ['nhaccuatui.spiders']
 NEWSPIDER_MODULE = 'nhaccuatui.spiders'
 
+# Configure database
+MYSQL_HOST = "localhost"
+MYSQL_DB = "scrapy"
+MYSQL_TABLE = "Songs"
+MYSQL_USER = "root"
+MYSQL_PASSWORD = "admin"
+MYSQL_PORT = "3306"
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'nhaccuatui (+http://www.yourdomain.com)'
 
