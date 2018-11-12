@@ -1,7 +1,7 @@
 import scrapy
 from scrapy_splash import SplashRequest
 
-script = """
+cookie_script = """
 function main(splash)
     splash:init_cookies(splash.args.cookies)
     local url = splash.args.url
@@ -14,7 +14,7 @@ function main(splash)
 end
 """
 
-script2 = """
+content_script = """
 function main(splash)
     splash:init_cookies(splash.args.cookies)
     local url = splash.args.url
@@ -37,14 +37,14 @@ class FahasaSpider(scrapy.Spider):
     def start_requests(self):
         for url in self.start_urls:
             yield SplashRequest(url, self.parse, endpoint='execute',
-                                args={'lua_source': script})
+                                args={'lua_source': cookie_script})
 
     def parse(self, response):
         # Get the next page and yield Request
         next_selector = response.xpath('//*[@title="Next"]/@href')
         for url in next_selector.extract():
             yield SplashRequest(url, endpoint='execute',
-                                args={'lua_source': script2})
+                                args={'lua_source': content_script})
 
         # Get URL in page and yield Request
         url_selector = response.xpath(
@@ -52,7 +52,7 @@ class FahasaSpider(scrapy.Spider):
         for url in url_selector.extract():
             yield SplashRequest(url, callback=self.parse_item,
                                 endpoint='execute',
-                                args={'lua_source': script2})
+                                args={'lua_source': content_script})
 
     def parse_item(self, response):
         """
